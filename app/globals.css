@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FBF6EE;
+  --ink: #3a3a3a;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-serif), Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .floral-card {
+    @apply relative overflow-hidden rounded-3xl border border-sage/20 bg-white/70 shadow-[0_10px_40px_-20px_rgba(94,110,80,0.35)] backdrop-blur;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-sage px-6 py-3 font-serif text-base text-white shadow-sm transition hover:bg-sage-dark active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full border border-sage/30 px-4 py-2 font-serif text-sm text-sage-dark transition hover:bg-sage/10;
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border border-sage/30 bg-white/80 px-4 py-3 font-serif text-base text-[var(--ink)] placeholder:text-sage/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/30;
+  }
+}
+
+.page-bg {
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(212, 130, 140, 0.18), transparent 60%),
+    radial-gradient(900px 400px at -10% 110%, rgba(126, 142, 110, 0.18), transparent 60%),
+    linear-gradient(180deg, #FBF6EE 0%, #F6EEE0 100%);
+}
