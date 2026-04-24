@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FloralWreath } from "@/components/FloralWreath";
 import type { SongRequest } from "@/lib/redis";
 
@@ -17,6 +17,9 @@ export default function ArtistPage() {
   const [lastCount, setLastCount] = useState(0);
   const [flash, setFlash] = useState(false);
   const [playedCount, setPlayedCount] = useState(0);
+  // IDs já deletados localmente — filtra respostas stale do polling pra evitar
+  // que o pedido reapareça entre o clique e o DELETE confirmar no servidor.
+  const deletedIdsRef = useRef<Set<string>>(new Set());
 
   // carrega contador de tocadas do localStorage (persiste entre refreshes no mesmo dispositivo)
   useEffect(() => {
@@ -35,7 +38,7 @@ export default function ArtistPage() {
       const res = await fetch("/api/requests", { cache: "no-store" });
       const data = await res.json();
       const list: SongRequest[] = data?.requests ?? [];
-      setRequests(list);
+      setRequests(list.filter((item) => !deletedIdsRef.current.has(item.id)));
       setLoading(false);
     } catch {
       setLoading(false);
@@ -62,11 +65,14 @@ export default function ArtistPage() {
   }, [requests, lastCount]);
 
   async function removeFromServer(id: string) {
-    // otimista
+    deletedIdsRef.current.add(id);
     setRequests((prev) => prev.filter((r) => r.id !== id));
     try {
-      await fetch(`/api/requests/${id}`, { method: "DELETE" });
-    } finally {
+      const res = await fetch(`/api/requests/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("delete failed");
+    } catch {
+      // Se o DELETE falhar, libera o ID pra voltar aparecer no próximo polling
+      deletedIdsRef.current.delete(id);
       load();
     }
   }
