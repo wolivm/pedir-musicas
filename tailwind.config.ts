@@ -9,20 +9,25 @@ const config: Config = {
     extend: {
       colors: {
         cream: "#FBF6EE",
+        ink: {
+          DEFAULT: "#2A2A2A",
+          soft: "#4A4A4A",
+        },
         sage: {
           light: "#AFBBA0",
-          DEFAULT: "#7E8E6E",
-          dark: "#5E6E50",
+          DEFAULT: "#6B7C5C",
+          dark: "#455238",
         },
         rose: {
           light: "#F4D8DA",
-          DEFAULT: "#D4828C",
-          dark: "#A85762",
+          DEFAULT: "#C56874",
+          dark: "#8F3F4C",
         },
       },
       fontFamily: {
         script: ["var(--font-script)", "cursive"],
         serif: ["var(--font-serif)", "serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },

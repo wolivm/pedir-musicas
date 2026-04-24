@@ -39,11 +39,11 @@ export default function PublicPage() {
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-start px-5 pb-16 pt-10">
       <header className="flex flex-col items-center text-center">
         <FloralWreath size={160} />
-        <p className="mt-4 font-serif text-sm uppercase tracking-[0.3em] text-sage-dark">
+        <p className="mt-4 text-[13px] font-semibold uppercase tracking-[0.22em] text-sage-dark">
           1º aniversário
         </p>
-        <h1 className="mt-1 font-script text-6xl leading-none text-sage-dark">Anna Laura</h1>
-        <p className="mt-4 max-w-xs font-serif text-lg italic text-sage-dark/80">
+        <h1 className="mt-1 font-script text-[64px] leading-none text-sage-dark">Anna Laura</h1>
+        <p className="mt-5 max-w-xs font-serif text-xl font-medium text-ink">
           Qual música você gostaria de ouvir na festa?
         </p>
       </header>
@@ -51,8 +51,8 @@ export default function PublicPage() {
       {status === "sent" ? (
         <section className="floral-card mt-10 w-full p-8 text-center">
           <FloralWreath size={80} className="mx-auto" />
-          <h2 className="mt-4 font-script text-4xl text-rose-dark">Pedido enviado!</h2>
-          <p className="mt-2 font-serif text-base text-sage-dark/80">
+          <h2 className="mt-4 font-script text-5xl text-rose-dark">Pedido enviado!</h2>
+          <p className="mt-3 text-base font-medium text-ink">
             A banda já recebeu sua sugestão. Obrigado por celebrar com a gente!
           </p>
           <button
@@ -66,7 +66,7 @@ export default function PublicPage() {
       ) : (
         <form onSubmit={handleSubmit} className="floral-card mt-10 w-full space-y-5 p-6">
           <div className="space-y-2">
-            <label htmlFor="song" className="block font-serif text-sm uppercase tracking-widest text-sage-dark">
+            <label htmlFor="song" className="ui-label">
               Música
             </label>
             <input
@@ -76,15 +76,15 @@ export default function PublicPage() {
               maxLength={200}
               value={song}
               onChange={(e) => setSong(e.target.value)}
-              placeholder="Ex.: Evidências — Chitãozinho & Xororó"
+              placeholder="Ex.: Evidências — Chitãozinho &amp; Xororó"
               className="input-field"
               autoComplete="off"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="note" className="block font-serif text-sm uppercase tracking-widest text-sage-dark">
-              Recado <span className="text-sage/60 normal-case tracking-normal">(opcional)</span>
+            <label htmlFor="note" className="ui-label">
+              Recado <span className="font-normal normal-case tracking-normal text-ink-soft">(opcional)</span>
             </label>
             <textarea
               id="note"
@@ -99,7 +99,7 @@ export default function PublicPage() {
           </div>
 
           {status === "error" && (
-            <p className="rounded-xl bg-rose-light/60 px-4 py-2 font-serif text-sm text-rose-dark">
+            <p className="rounded-xl bg-rose-light/70 px-4 py-3 text-sm font-semibold text-rose-dark">
               {errorMsg}
             </p>
           )}
@@ -110,7 +110,7 @@ export default function PublicPage() {
         </form>
       )}
 
-      <footer className="mt-10 text-center font-script text-2xl text-rose-dark/80">
+      <footer className="mt-10 text-center font-script text-3xl text-rose-dark">
         Com amor, Mamãe &amp; Papai
       </footer>
     </main>
