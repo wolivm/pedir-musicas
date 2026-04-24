@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createRequest, listRequests, clearPlayed } from "@/lib/redis";
+import { createRequest, listRequests, clearAll } from "@/lib/redis";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +25,6 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE() {
-  const removed = await clearPlayed();
+  const removed = await clearAll();
   return NextResponse.json({ removed });
 }
