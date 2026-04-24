@@ -35,12 +35,15 @@ export default function ArtistPage() {
     return () => clearInterval(id);
   }, [load]);
 
-  // efeito visual ao chegar novo pedido
+  // efeito visual + auto-scroll ao chegar novo pedido
   useEffect(() => {
     const pending = requests.filter((r) => !r.played).length;
     if (pending > lastCount && lastCount !== 0) {
       setFlash(true);
       setTimeout(() => setFlash(false), 1200);
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
     setLastCount(pending);
   }, [requests, lastCount]);
