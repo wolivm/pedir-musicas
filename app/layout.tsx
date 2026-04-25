@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Great_Vibes, Nunito } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
@@ -38,7 +39,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${serif.variable} ${script.variable} ${sans.variable}`}>
-      <body className="page-bg">{children}</body>
+      <body className="page-bg">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

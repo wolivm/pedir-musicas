@@ -63,15 +63,3 @@ export async function deleteRequest(id: string): Promise<boolean> {
   const removed = await redis.hdel(REQUESTS_KEY, id);
   return removed > 0;
 }
-
-export async function clearAll(): Promise<number> {
-  if (!redis) {
-    const count = memoryStore.size;
-    memoryStore.clear();
-    return count;
-  }
-  const ids = (await readAll()).map((item) => item.id);
-  if (ids.length === 0) return 0;
-  await redis.hdel(REQUESTS_KEY, ...ids);
-  return ids.length;
-}

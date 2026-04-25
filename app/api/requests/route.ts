@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createRequest, listRequests, clearAll } from "@/lib/redis";
+import { createRequest, listRequests } from "@/lib/redis";
 
 export const dynamic = "force-dynamic";
 
@@ -22,9 +22,4 @@ export async function POST(request: Request) {
 
   const created = await createRequest({ song, note: note || undefined });
   return NextResponse.json({ request: created }, { status: 201 });
-}
-
-export async function DELETE() {
-  const removed = await clearAll();
-  return NextResponse.json({ removed });
 }
