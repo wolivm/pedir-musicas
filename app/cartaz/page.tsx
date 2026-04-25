@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
 import QRCode from "qrcode";
-import { FloralWreath } from "@/components/FloralWreath";
 import { PrintButton } from "./PrintButton";
 
 export const dynamic = "force-dynamic";
@@ -61,13 +60,12 @@ export default async function CartazPage() {
           <div className="poster-frame" />
           <div className="poster-frame-inner" />
 
-          <div className="relative flex h-full min-h-[297mm] flex-col items-center px-[20mm] pb-[18mm] pt-[22mm] text-center">
+          <div className="relative flex h-full min-h-[297mm] flex-col items-center px-[20mm] pb-[18mm] pt-[32mm] text-center">
             {/* Topo */}
-            <FloralWreath size={120} />
-            <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.4em] text-sage-dark">
+            <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-sage-dark">
               1º Aniversário
             </p>
-            <h1 className="mt-1 font-script text-[78px] leading-none text-sage-dark">
+            <h1 className="mt-2 font-script text-[88px] leading-none text-sage-dark">
               Anna Laura
             </h1>
 
@@ -105,8 +103,7 @@ export default async function CartazPage() {
 
             {/* Rodapé */}
             <div className="mt-auto pt-6">
-              <FloralWreath size={70} />
-              <p className="mt-3 font-script text-[34px] leading-none text-rose-dark">
+              <p className="font-script text-[40px] leading-none text-rose-dark">
                 Com amor, Mamãe &amp; Papai
               </p>
             </div>
