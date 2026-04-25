@@ -122,6 +122,17 @@ export default function ArtistPage() {
     setDismissedIds(new Set());
   }
 
+  function clearList() {
+    if (visibleRequests.length === 0) return;
+    const msg = `Limpar todos os ${visibleRequests.length} ${visibleRequests.length === 1 ? "pedido" : "pedidos"} da lista?\n\nEles ficam ocultos só no seu dispositivo — nada é apagado do servidor. Você pode restaurar depois.`;
+    if (!confirm(msg)) return;
+    setDismissedIds((prev) => {
+      const next = new Set(prev);
+      visibleRequests.forEach((r) => next.add(r.id));
+      return next;
+    });
+  }
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-5 pb-24 pt-8">
       <header className="flex flex-col items-center text-center">
@@ -214,14 +225,28 @@ export default function ArtistPage() {
         )}
       </section>
 
-      {dismissedIds.size > 0 && (
-        <button
-          onClick={restoreAll}
-          className="mt-6 self-center rounded-full border border-sage/40 bg-white/70 px-5 py-2 text-sm font-semibold text-sage-dark transition hover:bg-sage/10 active:scale-[0.98]"
-        >
-          Restaurar {dismissedIds.size} {dismissedIds.size === 1 ? "pedido oculto" : "pedidos ocultos"}
-        </button>
-      )}
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        {visibleRequests.length > 0 && (
+          <button
+            onClick={clearList}
+            className="inline-flex items-center gap-2 rounded-full border border-rose-dark/40 bg-white/70 px-5 py-2 text-sm font-semibold text-rose-dark transition hover:bg-rose-light/40 active:scale-[0.98]"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6" />
+            </svg>
+            Limpar lista
+          </button>
+        )}
+        {dismissedIds.size > 0 && (
+          <button
+            onClick={restoreAll}
+            className="rounded-full border border-sage/40 bg-white/70 px-5 py-2 text-sm font-semibold text-sage-dark transition hover:bg-sage/10 active:scale-[0.98]"
+          >
+            Restaurar {dismissedIds.size} {dismissedIds.size === 1 ? "pedido oculto" : "pedidos ocultos"}
+          </button>
+        )}
+      </div>
 
       <p className="mt-8 text-center text-[13px] font-medium text-ink-soft">
         Atualiza sozinha a cada {POLL_MS / 1000}s.<br />
